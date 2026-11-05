@@ -268,14 +268,13 @@ function ClaimKeyContent() {
             <div
               style={{
                 display: 'flex',
-                justifyContent: 'space-between',
+                justifyContent: 'center',
                 fontSize: 12,
                 color: 'var(--text-secondary)',
                 marginTop: 10,
               }}
             >
-              <span>Gói Game: {mintedKey.game_package}</span>
-              <span>Giới hạn: {mintedKey.max_devices} Thiết bị Game</span>
+              <span>Giới hạn: {mintedKey.max_devices === 0 ? 'Không giới hạn' : `${mintedKey.max_devices} Thiết bị`}</span>
             </div>
           </div>
 

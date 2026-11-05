@@ -427,7 +427,11 @@ export default function AdminDashboardPage() {
   // Save Game (Upsert)
   const handleSaveGame = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!gameModalData?.package_name || !gameModalData?.game_name) return;
+    if (!gameModalData?.game_name) return;
+
+    const pkg =
+      gameModalData.package_name ||
+      'game.' + gameModalData.game_name.toLowerCase().replace(/[^a-z0-9]/g, '_');
 
     const features = gameFeaturesRaw
       .split('\n')
@@ -440,6 +444,7 @@ export default function AdminDashboardPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...gameModalData,
+          package_name: pkg,
           features_json: features,
         }),
       });
@@ -895,7 +900,7 @@ export default function AdminDashboardPage() {
                     <option value="ALL">★ Tất cả mọi Game</option>
                     {gamesList.map((g) => (
                       <option key={g.package_name} value={g.package_name}>
-                        {g.game_name} ({g.package_name})
+                        {g.game_name}
                       </option>
                     ))}
                   </select>
@@ -1274,7 +1279,6 @@ export default function AdminDashboardPage() {
                 <thead>
                   <tr>
                     <th>Icon & Tên Game</th>
-                    <th>Package Name</th>
                     <th>Phiên Bản (min_version)</th>
                     <th>Trạng Thái</th>
                     <th>Thao Tác</th>
@@ -1293,7 +1297,6 @@ export default function AdminDashboardPage() {
                           <span style={{ fontWeight: 600 }}>{g.game_name}</span>
                         </div>
                       </td>
-                      <td style={{ fontFamily: 'JetBrains Mono', fontSize: 12 }}>{g.package_name}</td>
                       <td>{g.min_version}</td>
                       <td>
                         <button
@@ -1358,20 +1361,6 @@ export default function AdminDashboardPage() {
                 </div>
 
                 <form onSubmit={handleSaveGame}>
-                  <div className="form-field" style={{ marginBottom: 12 }}>
-                    <label>Package Name (Dùng dấu phẩy nếu nhiều package, ví dụ Liên Quân):</label>
-                    <input
-                      type="text"
-                      className="hiroki-input"
-                      value={gameModalData.package_name || ''}
-                      onChange={(e) =>
-                        setGameModalData({ ...gameModalData, package_name: e.target.value.trim() })
-                      }
-                      placeholder="com.vng.speedvn"
-                      required
-                    />
-                  </div>
-
                   <div className="form-field" style={{ marginBottom: 12 }}>
                     <label>Tên Game Hiển Thị:</label>
                     <input

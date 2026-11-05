@@ -355,9 +355,8 @@ export default function HirokiHomePage() {
                   alt={selectedGame.game_name}
                   className="game-icon-img"
                 />
-                <div>
+                <div style={{ minWidth: 0 }}>
                   <div className="game-title-text">{selectedGame.game_name}</div>
-                  <div className="game-pkg-sub">{selectedGame.package_name}</div>
                 </div>
               </div>
 
@@ -398,9 +397,8 @@ export default function HirokiHomePage() {
                       alt={g.game_name}
                       className="game-icon-img"
                     />
-                    <div>
+                    <div style={{ minWidth: 0 }}>
                       <div className="game-title-text">{g.game_name}</div>
-                      <div className="game-pkg-sub">{g.package_name}</div>
                     </div>
                   </div>
                   <span

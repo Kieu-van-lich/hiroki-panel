@@ -280,6 +280,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
   background: var(--bg-elevated);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
@@ -287,6 +288,7 @@ body {
   cursor: pointer;
   color: var(--text-main);
   transition: all 0.2s ease;
+  overflow: hidden;
 }
 
 .game-trigger:hover,
@@ -300,6 +302,9 @@ body {
   align-items: center;
   gap: 12px;
   text-align: left;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .game-icon-img {
@@ -315,6 +320,9 @@ body {
   font-weight: 700;
   font-size: 15px;
   color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .game-pkg-sub {
@@ -368,6 +376,8 @@ body {
   font-weight: 700;
   padding: 3px 8px;
   border-radius: 999px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .badge-online {
@@ -665,4 +675,78 @@ body {
   background: rgba(239, 68, 68, 0.2);
   color: #fca5a5;
 }
+
+/* ==========================================================
+   MOBILE RESPONSIVE ENHANCEMENTS (Tối ưu màn hình điện thoại)
+   ========================================================== */
+@media (max-width: 480px) {
+  .hiroki-shell {
+    padding: 16px 12px;
+    overflow-x: hidden;
+  }
+
+  .hiroki-card {
+    padding: 20px 14px;
+    border-radius: 18px;
+  }
+
+  /* Top bar thu gọn padding và cỡ chữ */
+  .top-bar {
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .lang-group {
+    padding: 2px;
+    gap: 2px;
+  }
+
+  .lang-btn {
+    font-size: 11px;
+    padding: 4px 7px;
+  }
+
+  .icon-btn {
+    font-size: 11.5px;
+    padding: 5px 9px;
+    gap: 4px;
+  }
+
+  /* Brand Header */
+  .brand-header {
+    margin-bottom: 16px;
+  }
+
+  .brand-avatar-wrap {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 8px;
+  }
+
+  .brand-title {
+    font-size: 22px;
+  }
+
+  .brand-subtitle {
+    font-size: 12.5px;
+  }
+
+  /* Thông báo banner */
+  .announcement-bar {
+    font-size: 12px;
+    padding: 8px 10px;
+    margin-bottom: 14px;
+  }
+
+  /* Game item trong menu xổ xuống */
+  .game-option-item {
+    padding: 8px 10px;
+  }
+
+  .game-icon-img {
+    width: 36px;
+    height: 36px;
+  }
+}
+
 
