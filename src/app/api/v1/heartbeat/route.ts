@@ -178,9 +178,8 @@ export async function POST(req: NextRequest) {
     p_key_code: keyCode,
     p_game_package: gamePackage,
     p_device_id: deviceId,
-    p_device_name: 'Heartbeat Client',
     p_app_version: appVersion,
-    p_ip: clientIp,
+    p_client_ip: clientIp,
   });
 
   if (error || !data) {
