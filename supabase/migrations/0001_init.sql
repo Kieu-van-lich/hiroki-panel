@@ -836,7 +836,7 @@ $$;
 
 -- 4.1. Thu hồi toàn bộ quyền trên Schema, Bảng, Sequence, Function hiện có
 REVOKE ALL ON SCHEMA public FROM PUBLIC, anon, authenticated;
-GRANT USAGE ON SCHEMA public TO service_role;
+GRANT USAGE ON SCHEMA public TO service_role, anon, authenticated;
 
 REVOKE ALL ON ALL TABLES IN SCHEMA public FROM PUBLIC, anon, authenticated;
 REVOKE ALL ON ALL SEQUENCES IN SCHEMA public FROM PUBLIC, anon, authenticated;
