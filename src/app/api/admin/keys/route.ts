@@ -183,15 +183,18 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
+    const durationTag = isLifetime ? 'LIFETIME' : formatDurationTag(durationSeconds);
     rowsToInsert.push({
       key_code: customKeyCode,
       key_type: keyType,
       game_package: gamePackage,
       all_games: allGames,
       max_devices: maxDevices,
+      duration_label: durationTag,
       duration_seconds: durationSeconds,
+      is_lifetime: isLifetime,
       start_on_first_use: startOnFirstUse,
-      activate_before: activateBeforeIso,
+      activate_before: startOnFirstUse ? (activateBeforeIso || new Date(nowMs + 30 * 86400 * 1000).toISOString()) : null,
       activated_at: startOnFirstUse ? null : nowIso,
       expires_at: expiresAtIso,
       is_active: true,
@@ -236,9 +239,11 @@ export async function POST(req: NextRequest) {
         game_package: gamePackage,
         all_games: allGames,
         max_devices: maxDevices,
+        duration_label: durationTag,
         duration_seconds: durationSeconds,
+        is_lifetime: isLifetime,
         start_on_first_use: startOnFirstUse,
-        activate_before: activateBeforeIso,
+        activate_before: startOnFirstUse ? (activateBeforeIso || new Date(nowMs + 30 * 86400 * 1000).toISOString()) : null,
         activated_at: startOnFirstUse ? null : nowIso,
         expires_at: expiresAtIso,
         is_active: true,

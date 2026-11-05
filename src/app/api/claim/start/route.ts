@@ -179,12 +179,16 @@ export async function POST(req: NextRequest) {
       .from('claim_sessions')
       .insert({
         claim_token: claimToken,
+        token_hash: claimToken,
+        cookie_hash: '',
         pin_code: pinCode,
         game_package: rawGamePackage,
         ip_address: clientIp,
         user_agent: (req.headers.get('user-agent') || '').slice(0, 255),
         shortener_provider: shortenerRes.providerName,
+        provider_name: shortenerRes.providerName,
         shortened_url: shortenerRes.shortenedUrl,
+        short_url: shortenerRes.shortenedUrl,
         status: 'PENDING',
         min_complete_after: minCompleteAfter,
         expires_at: expiresAt,

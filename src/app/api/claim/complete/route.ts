@@ -126,7 +126,7 @@ export async function POST(req: NextRequest) {
     .select(
       'id, claim_token, pin_code, game_package, ip_address, status, min_complete_after, provider_verified'
     )
-    .eq('claim_token', claimToken)
+    .or(`claim_token.eq.${claimToken},token_hash.eq.${claimToken}`)
     .maybeSingle();
 
   if (!sessionRow) {
