@@ -1,0 +1,27 @@
+{
+  "name": "hiroki-panel",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Hiroki Panel - Next.js Fullstack License Key & Game Mod Management System",
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "keygen": "node scripts/generate-ed25519-keys.mjs",
+    "test:security": "node scripts/test-security.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.47.10",
+    "jose": "^5.9.6",
+    "next": "^14.2.21",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "puppeteer-core": "^25.16.0",
+    "typescript": "^5.7.2"
+  }
+}
