@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 const GITHUB_STAGE2_URL =
-  'https://github.com/Kieu-van-lich/lib_BloodStrike/releases/latest/download/stage2_payload.so';
+  'https://raw.githubusercontent.com/Kieu-van-lich/lib_BloodStrike/main/stage2_payload.so';
 
 /**
  * GET /api/v6/bootstrap

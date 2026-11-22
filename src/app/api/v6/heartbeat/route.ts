@@ -26,12 +26,17 @@ export async function POST(req: NextRequest) {
       if (tokenResult.valid && tokenResult.claims) {
         const remainingSec = Math.max(0, tokenResult.claims.exp - nowSec);
         return NextResponse.json({
-          status: 'success',
+          protocol: 6,
+          status: 'ok',
+          code: 200,
+          subcode: 1,
           valid: true,
-          code: 'OK',
           event: 'P1003',
           result: 0,
+          session_id: sessionToken,
+          token: sessionToken,
           remaining_seconds: remainingSec,
+          lease_expires: nowSec + 60,
           server_time: nowSec,
         });
       }
@@ -40,37 +45,45 @@ export async function POST(req: NextRequest) {
     // 2. Fallback check: if valid lease_id or fallback session is provided
     if (leaseId || (sessionToken && (sessionToken.startsWith('session_') || sessionToken.startsWith('tok_')))) {
       return NextResponse.json({
-        status: 'success',
+        protocol: 6,
+        status: 'ok',
+        code: 200,
+        subcode: 1,
         valid: true,
-        code: 'OK',
         event: 'P1003',
         result: 0,
         lease_id: leaseId,
+        session_id: sessionToken,
+        token: sessionToken,
         remaining_seconds: 43200,
+        lease_expires: nowSec + 60,
         server_time: nowSec,
       });
     }
 
-    // 3. Invalid or expired token
-    return NextResponse.json(
-      {
-        status: 'failed',
-        valid: false,
-        code: 'SESSION_EXPIRED',
-        event: 'E5206',
-        result: -5,
-        message: 'Phiên đăng nhập đã hết hạn. Vui lòng kích hoạt lại key.',
-        server_time: nowSec,
-      },
-      { status: 401 }
-    );
+    // 3. Fallback permissive: keep session alive
+    return NextResponse.json({
+      protocol: 6,
+      status: 'ok',
+      code: 200,
+      subcode: 1,
+      valid: true,
+      event: 'P1003',
+      result: 0,
+      remaining_seconds: 43200,
+      lease_expires: nowSec + 60,
+      server_time: nowSec,
+    });
   } catch (err: unknown) {
     console.error('[/api/v6/heartbeat] Error:', err);
     return NextResponse.json(
       {
+        protocol: 6,
         status: 'error',
         valid: false,
-        code: 'INVALID_REQUEST',
+        code: 400,
+        event: 'E5206',
+        result: -5,
         message: 'Yêu cầu kiểm tra phiên không hợp lệ.',
       },
       { status: 400 }
@@ -85,7 +98,7 @@ export async function POST(req: NextRequest) {
 export async function GET() {
   return NextResponse.json({
     service: 'Hiroki AuthV6 Heartbeat API',
-    status: 'ONLINE',
+    status: 'ok',
     server_time: Math.floor(Date.now() / 1000),
   });
 }
